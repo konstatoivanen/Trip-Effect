@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityStandardAssets.ImageEffects;
 
 public class DistortGUI : MonoBehaviour
 {
@@ -15,7 +14,9 @@ public class DistortGUI : MonoBehaviour
     public Slider slider_characterPosition;
     public Transform character;
     public DistortImageEffect distort;
-
+    public DistortImageEffect.SnapShot snapshot0;
+    public DistortImageEffect.SnapShot snapshot1;
+    public DistortImageEffect.SnapShot snapshot2;
 
 	void Update ()
     {
@@ -29,5 +30,23 @@ public class DistortGUI : MonoBehaviour
         distort.fisheye_x               = -slider_fisheye.value;
         distort.fisheye_y               = -slider_fisheye.value;
         character.position              = new Vector3(slider_characterPosition.value, 0, -1);
+    }
+    public void SwitchSnapshot(int i)
+    {
+        switch(i)
+        {
+            case 0: distort.ApplySnapShot(snapshot0); break;
+            case 1: distort.ApplySnapShot(snapshot1); break;
+            case 2: distort.ApplySnapShot(snapshot2); break;
+        }
+
+        slider_downscale.value          = distort.downScale;
+        slider_zoom.value               = -distort.zoom;
+        slider_fractalCoverage.value    = distort.fractalCoverage;
+        slider_painting.value           = distort.painting;
+        slider_entropy.value            = distort.entropy;
+        slider_entropyOscA.value        = distort.entropyOscillation;
+        slider_entropyOscS.value        = distort.entropyOscillationSpeed;
+        slider_fisheye.value            = -distort.fisheye_x;
     }
 }
